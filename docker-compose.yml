@@ -12,14 +12,14 @@ services:
       - zammad-postgresql
     restart: ${RESTART}
     volumes:
-      - zammad-backup:/var/tmp/zammad
-      - zammad-data:/opt/zammad
+      - /zammad/backup:/var/tmp/zammad
+      - /zammad/data:/opt/zammad
 
   zammad-elasticsearch:
     image: ${IMAGE_REPO}:zammad-elasticsearch${VERSION}
     restart: ${RESTART}
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+      - /zammad/elasticsearch:/usr/share/elasticsearch/data
 
   zammad-init:
     command: ["zammad-init"]
@@ -31,7 +31,7 @@ services:
       - zammad-postgresql
     restart: on-failure
     volumes:
-      - zammad-data:/opt/zammad
+      - /zammad/data:/opt/zammad
 
   zammad-memcached:
     command: ["zammad-memcached"]
@@ -48,7 +48,7 @@ services:
       - zammad-websocket
     restart: ${RESTART}
     volumes:
-      - zammad-data:/opt/zammad
+      - /zammad/data:/opt/zammad
     expose:
       - "80"
 
@@ -56,7 +56,7 @@ services:
     image: ${IMAGE_REPO}:zammad-postgresql${VERSION}
     restart: ${RESTART}
     volumes:
-      - postgresql-data:/var/lib/postgresql/data
+      - /zammad/postgresql/data:/var/lib/postgresql/data
 
   zammad-railsserver:
     command: ["zammad-railsserver"]
@@ -70,7 +70,7 @@ services:
       - zammad-postgresql
     restart: ${RESTART}
     volumes:
-      - zammad-data:/opt/zammad
+      - /zammad/data:/opt/zammad
 
   zammad-scheduler:
     command: ["zammad-scheduler"]
@@ -84,7 +84,7 @@ services:
       - zammad-postgresql
     restart: ${RESTART}
     volumes:
-      - zammad-data:/opt/zammad
+      - /zammad/data:/opt/zammad
 
   zammad-websocket:
     command: ["zammad-websocket"]
@@ -97,14 +97,11 @@ services:
       - zammad-memcached
     restart: ${RESTART}
     volumes:
-      - zammad-data:/opt/zammad
+      - /zammad/data:/opt/zammad
 
 volumes:
   elasticsearch-data:
     driver: local
   postgresql-data:
     driver: local
-  zammad-backup:
-    driver: local
-  zammad-data:
-    driver: local
+
