@@ -19,10 +19,10 @@ services:
     image: ${IMAGE_REPO}:zammad-elasticsearch${VERSION}
     restart: ${RESTART}
     ulimits:
-      nproc: 65535
+      nproc: 131072
       nofile:
-        soft: 65535
-        hard: 65535
+        soft: 131072
+        hard: 131072
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
 
