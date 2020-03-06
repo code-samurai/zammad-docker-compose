@@ -11,8 +11,8 @@ set -e
 : "${MEMCACHED_PORT:=11211}"
 : "${POSTGRESQL_HOST:=zammad-postgresql}"
 : "${POSTGRESQL_PORT:=5432}"
-: "${POSTGRESQL_USER:=zammad}"
-: "${POSTGRESQL_PASS:=zammad}"
+: "${POSTGRESQL_USER:=postgres}"
+: "${POSTGRESQL_PASS:=}"
 : "${POSTGRESQL_DB:=zammad_production}"
 : "${POSTGRESQL_DB_CREATE:=true}"
 : "${ZAMMAD_RAILSSERVER_HOST:=zammad-railsserver}"
@@ -98,7 +98,6 @@ if [ "$1" = 'zammad-init' ]; then
   else
     SSL_SKIP_VERIFY=""
   fi
-  
   if ! curl -s ${SSL_SKIP_VERIFY} ${ELASTICSEARCH_SCHEMA}://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}/_cat/indices | grep -q zammad; then
     echo "rebuilding es searchindex..."
     bundle exec rake searchindex:rebuild
