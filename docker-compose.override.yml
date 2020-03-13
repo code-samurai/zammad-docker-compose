@@ -1,6 +1,37 @@
 version: '2'
 services:
 
+  zammad-backup:
+    volumes:
+      - /zammad/backup:/var/tmp/zammad
+      - /zammad/data:/opt/zammad
+
+  zammad-elasticsearch:
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+  zammad-init:
+    volumes:
+      - /zammad/data:/opt/zammad
+
   zammad-nginx:
+    volumes:
+      - /zammad/data:/opt/zammad
     ports:
       - "8009:80"
+
+  zammad-postgresql:
+    volumes:
+      - /zammad/postgresql/data:/var/lib/postgresql/data
+
+  zammad-railsserver:
+    volumes:
+      - /zammad/data:/opt/zammad
+
+  zammad-scheduler:
+    volumes:
+      - /zammad/data:/opt/zammad
+
+  zammad-websocket:
+    volumes:
+      - /zammad/data:/opt/zammad
